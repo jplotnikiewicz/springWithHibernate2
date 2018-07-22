@@ -50,7 +50,7 @@ public class UserController {
     public String viewUser(@ModelAttribute("id")@RequestParam("id") int id, Model model){
         User user = userJDBC.getUser(id);
         model.addAttribute("users", user);
-        return "list-user";
+        return "redirect:/list";
     }
 
     @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
