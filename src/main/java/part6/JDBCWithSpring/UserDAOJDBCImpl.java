@@ -39,16 +39,17 @@ public class UserDAOJDBCImpl implements UserDAO {
     }
 
     @Override
+    public void delete(Integer id) {
+        String sql = "delete from user where id = ?";
+        jdbcTemplate.update(sql, id);
+        System.out.println("Delete Record with ID = " +id);
+    }
+
+    @Override
     public void updateEmail(Integer id, String email) {
         String sql = "update user set email = ? where id = ?";
         jdbcTemplate.update(sql, id, email);
         System.out.println("Update Record with ID =" + id);
     }
 
-    @Override
-    public void delete(Integer id) {
-        String sql = "delete from user where id = ?";
-        jdbcTemplate.update(sql, id);
-        System.out.println("Delete Record with ID = " +id);
-    }
 }

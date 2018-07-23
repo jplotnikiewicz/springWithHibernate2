@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -42,25 +44,30 @@ public class UserController {
 
     @RequestMapping(value = "/findUser", method = RequestMethod.GET)
     public String findUser(Model model){
-        model.addAttribute("id", new Object());
+        model.addAttribute("user", new User());
         return "find-form";
     }
 
     @RequestMapping(value = "/viewUser", method = RequestMethod.GET)
-    public String viewUser(@ModelAttribute("id")@RequestParam("id") int id, Model model){
-        User user = userJDBC.getUser(id);
+    public String viewUser(@ModelAttribute("id")@RequestParam("id")int id, Model model){
+        List<User> user = Collections.singletonList(userJDBC.getUser(id));
         model.addAttribute("users", user);
+        return "list-user";
+    }
+    @RequestMapping(value="/deleteUser", method = RequestMethod.GET)
+    public String deleteUser(Model model){
+        model.addAttribute("user", new User());
+        return "delete-user";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@ModelAttribute ("id") @RequestParam ("id") int id, Model model){
+        userJDBC.delete(id);
         return "redirect:/list";
     }
 
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
-    public String deleteUser(@RequestParam ("id") int id, Model model){
-
-        userJDBC.delete(id);
-
-        return "redirct:/list";
-    }
-
+    @RequestMapping(value = "editEmaiil", method = RequestMethod.GET)
+    public editEmail(@ModelAttribute("user") @RequestParam("id", "email") )
 
 
 
