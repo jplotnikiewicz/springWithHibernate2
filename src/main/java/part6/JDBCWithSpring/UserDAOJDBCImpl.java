@@ -48,8 +48,7 @@ public class UserDAOJDBCImpl implements UserDAO {
     @Override
     public void updateEmail(Integer id, String email) {
         String sql = "update user set email = ? where id = ?";
-        int a = jdbcTemplate.update(sql, id, email);
-        System.out.println("JDBC code : " + a);
+        jdbcTemplate.update(sql, email, id);
         System.out.println("Update Record with ID =" + id);
     }
 

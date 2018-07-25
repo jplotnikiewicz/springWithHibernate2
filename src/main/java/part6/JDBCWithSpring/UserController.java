@@ -83,7 +83,4 @@ public class UserController {
         return "redirect:/list";
 
     }
-
-
-
 }
