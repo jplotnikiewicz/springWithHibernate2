@@ -66,8 +66,23 @@ public class UserController {
         return "redirect:/list";
     }
 
-    @RequestMapping(value = "editEmaiil", method = RequestMethod.GET)
-    public editEmail(@ModelAttribute("user") @RequestParam("id", "email") )
+    @RequestMapping(value = "/findUser2", method = RequestMethod.GET)
+    public String findUser2(Model model){
+        model.addAttribute("user", new User());
+        return "edit-email";
+    }
+
+
+
+    @RequestMapping(value = "/editEmaiil", method = RequestMethod.POST)
+    public String editEmail(@ModelAttribute("id") @RequestParam("id") int id,
+                            @ModelAttribute("email") @RequestParam("email") String email,
+                            Model model) {
+        System.out.println("New Email : " + email);
+        userJDBC.updateEmail(id,email);
+        return "redirect:/list";
+
+    }
 
 
 
